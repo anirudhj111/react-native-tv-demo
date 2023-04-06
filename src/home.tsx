@@ -4,26 +4,38 @@ const {height, width} = Dimensions.get('window')
 
 const Home = () => {
 
-    const [imageIndex, setIndex] = useState(0)
+    const [imageIndex, setImageIndex] = useState(0)
 
-    // const ImageObj = [
-    //     {
-    //         image : require('../assets/image_1.png')
-    //     },
-    //     {
-    //         image : require('../assets/image_2.png')
-    //     },
-    //     {
-    //         image : require('../assets/image_3.png')
-    //     },
-    //     {
-    //         image : require('../assets/image_4.png')
-    //     },
-    // ]
+    const ImageObj = [
+        {
+            image : require('../assets/movie1.png')
+        },
+        {
+            image : require('../assets/movie2.png')
+        },
+        {
+            image : require('../assets/movie3.png')
+        },
+        {
+            image : require('../assets/movie4.png')
+        },
+        {
+            image : require('../assets/movie1.png')
+        },
+        {
+            image : require('../assets/movie2.png')
+        },
+        {
+            image : require('../assets/movie3.png')
+        },
+        {
+            image : require('../assets/movie4.png')
+        },
+    ]
 
     return(
-        <View style={styles.container}>
-            <View style={{display:'flex', flexDirection:'row', justifyContent:'space-between'}}>
+        <ScrollView style={styles.container} contentContainerStyle={{ flexGrow: 1 }}>
+            <View style={{width:'100%',display:'flex', flexDirection:'row', justifyContent:'space-between', position:'absolute', top:0}}>
                 <View style={{display:'flex', flexDirection:'column', margin: '2%', justifyContent:'center', alignItems:'center', width:'10%'}}>
                     <Image style={{height: height*0.05, width: width*0.05}} resizeMode={'contain'} source={require('../assets/tv-app.png')} />
                     <Text style={{fontSize: 16}}>TvApp</Text>
@@ -32,11 +44,11 @@ const Home = () => {
                     <Image style={{height: height*0.05, width: width*0.05}} resizeMode={'contain'} source={require('../assets/user.png')} />
                 </View>
             </View>
-            <ImageBackground resizeMode={'stretch'} source={require('../assets/movie1.png')} style={{display:'flex', flexDirection:'row',height:height*0.55, width:width*0.95, alignSelf:'center', alignItems:'center', justifyContent:'space-between'}}>
-                <TouchableOpacity onPress={() => {setIndex((imageIndex-1)%4); console.log("decrease")}}>
+            <ImageBackground resizeMode={'stretch'} source={ImageObj[imageIndex].image} style={{display:'flex', flexDirection:'row',height:height*0.55, width:width*0.95, alignSelf:'center', alignItems:'center', justifyContent:'space-between', marginTop:height*0.15, zIndex:0}}>
+                <TouchableOpacity style={{zIndex:2}} onPress={() => {setImageIndex((imageIndex-1)%8); console.log("decrease")}}>
                     <Image style={{height:height*0.1, width:width*0.05, tintColor:'#fff'}} source={require('../assets/left-arrow.png')}/>
                 </TouchableOpacity>
-                <TouchableOpacity onPress={() => {setIndex((imageIndex+1)%4); console.log("increase")}}>
+                <TouchableOpacity style={{zIndex:2}} onPress={() => {setImageIndex((imageIndex+1)%8); console.log("increase")}}>
                     <Image style={{height:height*0.1, width:width*0.05, tintColor:'#fff'}} source={require('../assets/right-arrow.png')}/>
                 </TouchableOpacity>
             </ImageBackground>
@@ -45,28 +57,16 @@ const Home = () => {
             </View>
             <View style={{display:'flex', flexDirection:'row', width:'95%', alignSelf:'center'}}>
                 {
-                    [1,2,3,4,5,6,7,8].map((item, key) => {
+                    [0,1,2,3,4,5,6,7].map((item, key) => {
                         return(
-                            <ImageBackground key={key} style={{height:height*0.2, width: height*0.2,marginRight:'1%'}} resizeMode={'cover'} source={require(`../assets/movie1.png`)}>
-                                <Text style={{marginHorizontal:'1%', fontWeight:'bold'}}>Movie {item}</Text>
+                            <ImageBackground key={key} style={{height:height*0.2, width: height*0.2,marginRight:'1%'}} resizeMode={'cover'} source={ImageObj[item].image}>
+                                <Text style={{marginHorizontal:'1%', fontWeight:'bold'}}>Show {item+1}</Text>
                             </ImageBackground>
                         )
                     })
-                    // <FlatList 
-                    //    data={[1,2,3,4,5,6,7,8]}
-                    //    horizontal={true}
-                    //    scrollEnabled={true}
-                    //    renderItem={({item}) => {
-                    //         return(
-                    //             <ImageBackground key={item} style={{height:height*0.2, width: height*0.2,marginRight:'1%'}} source={require('../assets/movie1.png')}>
-                    //                 <Text>Movie {item}</Text>
-                    //             </ImageBackground>
-                    //         )
-                    //    }}
-                    // />
                 }
             </View>
-        </View>
+        </ScrollView>
     )
 }
 
